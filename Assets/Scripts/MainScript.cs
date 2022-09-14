@@ -12,17 +12,32 @@ public class MainScript : MonoBehaviour
 
     //local:
     private bool OrarendAlreadyUploaded = false;
+    
 
     public void orarendButtonPressed()
     {
         if (OrarendAlreadyUploaded)
+        {
             OrarendRepresentation_GO.SetActive(true);
-        else
-            OrarendUpload_GO.SetActive(true);
+            return;
+        }
+
+        OrarendUpload_GO.SetActive(true);
+        //beolvasás
         
     }
 
     public void settingsButtonPressed()
     {
+        List<int> lista = new List<int>();
+
+        int counter = 0;
+        for (int i = 0; i < lista.Count; i++)
+            if(lista[i] == 1)
+            {
+                ++counter;
+                lista.RemoveAt(i);
+                --i;
+            }
     }
 }
