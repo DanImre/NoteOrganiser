@@ -24,5 +24,6 @@ public class MainScript : MonoBehaviour
 
     public void settingsButtonPressed()
     {
+
     }
 }
