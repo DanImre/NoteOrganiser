@@ -8,6 +8,7 @@ public class OrarendRepresentationScript : MonoBehaviour
 {
     //given
     public GameObject prefab;
+    public GameObject EditPanel;
 
     //local
     List<GameObject> prefabs = new List<GameObject>();
@@ -24,15 +25,15 @@ public class OrarendRepresentationScript : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl) && Input.mouseScrollDelta.y > 0)
+        if (Input.GetKey(KeyCode.LeftControl) && (Input.mouseScrollDelta.y < 0 || Input.GetKeyDown(KeyCode.KeypadMinus)))
         {
             bool lehetZoomolni = false;
+            float oldSize = prefabs[0].GetComponent<RectTransform>().sizeDelta.y;
+            float newSize = oldSize - 10;
             for (int i = 0; i < prefabs.Count; i++)
                 if (prefabs[i].GetComponent<RectTransform>().sizeDelta.y > 50)
                 {
-                    float oldSize = prefabs[i].GetComponent<RectTransform>().sizeDelta.y;
                     prefabs[i].GetComponent<RectTransform>().sizeDelta -= new Vector2(0, 10);
-                    float newSize = oldSize - 10;
                     prefabs[i].GetComponent<HourMarkerPrefabScript>().updateInfoPanel(newSize, oldSize);
                     lehetZoomolni = true;
                 }
@@ -43,15 +44,15 @@ public class OrarendRepresentationScript : MonoBehaviour
                 this.transform.GetComponent<VerticalLayoutGroup>().enabled = true;
             }
         }
-        else if (Input.GetKey(KeyCode.LeftControl) && Input.mouseScrollDelta.y < 0)
+        else if (Input.GetKey(KeyCode.LeftControl) && (Input.mouseScrollDelta.y > 0 || Input.GetKeyDown(KeyCode.KeypadPlus))) 
         {
             bool lehetZoomolni = false;
+            float oldSize = prefabs[0].GetComponent<RectTransform>().sizeDelta.y;
+            float newSize = oldSize + 10;
             for (int i = 0; i < prefabs.Count; i++)
                 if (prefabs[i].GetComponent<RectTransform>().sizeDelta.y < 150)
                 {
-                    float oldSize = prefabs[i].GetComponent<RectTransform>().sizeDelta.y;
                     prefabs[i].GetComponent<RectTransform>().sizeDelta += new Vector2(0, 10);
-                    float newSize = oldSize + 10;
                     prefabs[i].GetComponent<HourMarkerPrefabScript>().updateInfoPanel(newSize, oldSize);
                     lehetZoomolni = true;
                 }
@@ -62,11 +63,16 @@ public class OrarendRepresentationScript : MonoBehaviour
                 this.transform.GetComponent<VerticalLayoutGroup>().enabled = true;
             }
         }
-        
+
     }
 
     public void createSession()
     {
-        prefabs[0].GetComponent<HourMarkerPrefabScript>().RenderSession(new System.DateTime(2000, 1, 1, 1, 0, 0), new System.DateTime(2000, 1, 1, 3, 0, 0), "proba1", "F-2", true);
+        prefabs[0].GetComponent<HourMarkerPrefabScript>().RenderSession(new System.DateTime(2000, 1, 1, 1, 15, 0), new System.DateTime(2000, 1, 1, 2, 45, 0), "proba1", "F-2", true);
+    }
+
+    public void EditLesson()
+    {
+        EditPanel.SetActive(true);
     }
 }
