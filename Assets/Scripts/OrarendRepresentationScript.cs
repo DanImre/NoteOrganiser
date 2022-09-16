@@ -74,5 +74,6 @@ public class OrarendRepresentationScript : MonoBehaviour
     public void EditLesson()
     {
         EditPanel.SetActive(true);
+        //EditPanel.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<TMP_Text>().text = 
     }
 }
